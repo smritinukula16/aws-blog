@@ -1,0 +1,167 @@
+/* Root Variables for Pastel Color Theme */
+:root {
+  --background-color: #cda0fb;       /* Light lavender */
+  --primary-color: #d1c4e9;          /* Soft purple */
+  --secondary-color: #eb84dd;        /* Light green */
+  --accent-color: #d3396f;           /* Soft pink */
+  --text-color: #4a4a4a;             /* Dark grey */
+  --heading-color: #6a1b9a;          /* Deep purple */
+  --button-bg: #621071;              /* Vibrant pastel purple */
+  --button-bg-hover: #210227;        /* Darker purple for hover */
+  --button-text: #b51f95;            /* White */
+  --border-color: #e0e0e0;           /* Light grey */
+  --input-bg: #f3e5f5;               /* Light lavender for inputs */
+}
+
+/* General Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Main Container */
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Header Styles */
+h1, h2 {
+  color: var(--heading-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+/* Links */
+a {
+  color: var(--button-bg);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--button-bg-hover);
+  text-decoration: underline;
+}
+
+/* Button Styling */
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: var(--button-bg-hover);
+}
+
+/* Post List Styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  margin-bottom: 1.2rem;
+  padding: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+li:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Input and Textarea Styling */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--button-bg);
+  outline: none;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Form Styling */
+form {
+  background-color: var(--background-color);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Post Detail */
+.post-detail {
+  padding: 1.5rem;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-detail p {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  line-height: 1.8;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  border-top: 1px solid var(--border-color);
+}
