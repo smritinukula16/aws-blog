@@ -1,48 +1,52 @@
+// src/pages/CreatePost.js
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ref, set, push } from 'firebase/database';
+import { database } from '../firebase';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (title && content) {
+      // Use Firebase push() to generate a valid, unique key
+      const newPostRef = push(ref(database, 'posts'));
 
-    if (!title || !content) {
-      alert('Both fields are required!');
-      return;
+      // Set the new post data at the generated reference
+      await set(newPostRef, {
+        title,
+        content,
+      });
+
+      // Redirect to the home page after submission
+      navigate('/');
+    } else {
+      alert('Title and content cannot be empty');
     }
-
-    const newPost = { id: Date.now(), title, content };
-
-    // Save post to localStorage
-    const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
-    const updatedPosts = [newPost, ...savedPosts];
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
-    // Navigate back to the home page
-    navigate('/');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <h2>Create a New Post</h2>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-        required
-      />
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          placeholder="Content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        ></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 };
 
