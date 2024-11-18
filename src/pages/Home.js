@@ -1,33 +1,45 @@
-import React, { useState, useEffect } from 'react';
+// src/pages/Home.js
+
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { get, ref } from 'firebase/database';
+import { database } from '../firebase';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Retrieve posts from localStorage
-    const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
-    setPosts(savedPosts);
+    const fetchPosts = async () => {
+      const dbRef = ref(database, 'posts/');
+      try {
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const postsArray = Object.keys(data).map(key => ({
+            id: key,
+            ...data[key],
+          }));
+          setPosts(postsArray);
+        }
+      } catch (error) {
+        console.error("Error fetching posts: ", error);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   return (
     <div>
       <h1>Blog Platform</h1>
-      <Link to="/create" style={{ display: 'block', margin: '1rem 0' }}>
-        Create a New Post
-      </Link>
-      <h2>Posts</h2>
-      {posts.length === 0 ? (
-        <p>No posts available. Create a new one!</p>
-      ) : (
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <Link to={`/post/${post.id}`}>{post.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Link to="/create">Create a New Post</Link>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link to={`/post/${post.id}`}>{post.title}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
